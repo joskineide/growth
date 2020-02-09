@@ -37,7 +37,7 @@ public class ScoreTextScript : MonoBehaviour
         actualSprite = GetComponent<SpriteRenderer>();
         Debug.Log(actualSprite);
 
-        if (curPos > sprites.Length){
+        if (curPos >= sprites.Length){
             actualSprite.sprite = sprites[sprites.Length - 1];
         }
         else {
@@ -47,10 +47,6 @@ public class ScoreTextScript : MonoBehaviour
         redWeight = red + (yellow / 2);
         blueWeight = blue;
         greenWeight = green + (yellow/2);
-
-        Debug.Log("Red 1: " + redWeight);
-        Debug.Log("Green 1: " + greenWeight);
-        Debug.Log("Blue 1: " + blueWeight);
 
         float dominantWeight = 1;
 
