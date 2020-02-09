@@ -1,0 +1,358 @@
+fileFormatVersion: 2
+guid: 7316a453c28e3704b9cfada7dd8beadb
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7466793628363803901
+    second: GoodTexts_0
+  - first:
+      213: 8274474340399998284
+    second: GoodTexts_1
+  - first:
+      213: -6691527731498808423
+    second: GoodTexts_2
+  - first:
+      213: -1796775747939010691
+    second: GoodTexts_3
+  - first:
+      213: -2170655084371648980
+    second: GoodTexts_4
+  - first:
+      213: 6204775751327582671
+    second: GoodTexts_5
+  - first:
+      213: 1203930240018335117
+    second: GoodTexts_6
+  - first:
+      213: 2791091893111241932
+    second: GoodTexts_7
+  - first:
+      213: -9212852610436237708
+    second: GoodTexts_8
+  - first:
+      213: 919117144176143370
+    second: GoodTexts_9
+  - first:
+      213: 1896336077577601343
+    second: GoodTexts_10
+  - first:
+      213: -2014211632411764820
+    second: GoodTexts_11
+  - first:
+      213: 5612921830343189291
+    second: GoodTexts_12
+  - first:
+      213: 8903677209650798932
+    second: GoodTexts_13
+  - first:
+      213: -2107026736803927195
+    second: GoodTexts_14
+  - first:
+      213: 4106717651704696873
+    second: GoodTexts_15
+  - first:
+      213: 9172613930000024917
+    second: GoodTexts_16
+  - first:
+      213: -1844291426929643277
+    second: GoodTexts_17
+  - first:
+      213: -398845208333626021
+    second: GoodTexts_18
+  - first:
+      213: -4378323305414123536
+    second: GoodTexts_19
+  - first:
+      213: 2264781191537498485
+    second: GoodTexts_20
+  - first:
+      213: 1642700811139913674
+    second: GoodTexts_21
+  - first:
+      213: 1023211419233377224
+    second: GoodTexts_22
+  - first:
+      213: 1822371870308540581
+    second: GoodTexts_23
+  - first:
+      213: -1777376409620528343
+    second: GoodTexts_24
+  - first:
+      213: 3466275115853904413
+    second: GoodTexts_25
+  - first:
+      213: -4928034076063003669
+    second: GoodTexts_26
+  - first:
+      213: 6571274429308186416
+    second: GoodTexts_27
+  - first:
+      213: -4956222510709143176
+    second: GoodTexts_28
+  - first:
+      213: -2776232121091103903
+    second: GoodTexts_29
+  - first:
+      213: -7833811061062371781
+    second: GoodTexts_30
+  - first:
+      213: -1742358559000066621
+    second: GoodTexts_31
+  - first:
+      213: -6490566859884236115
+    second: GoodTexts_32
+  - first:
+      213: 6675498653504013379
+    second: GoodTexts_33
+  - first:
+      213: -5190309409955982813
+    second: GoodTexts_34
+  - first:
+      213: -8047581783472139204
+    second: GoodTexts_35
+  - first:
+      213: -3985595231251413714
+    second: GoodTexts_36
+  - first:
+      213: -902157228184795363
+    second: GoodTexts_37
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GoodTexts_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 414
+        width: 707
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 303b93a71ce906890800000000000000
+      internalID: -7466793628363803901
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoodTexts_1
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 312
+        width: 380
+        height: 82
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4560a29296d4d270800000000000000
+      internalID: 8274474340399998284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoodTexts_2
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 196
+        width: 542
+        height: 90
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99b865f3bfae223a0800000000000000
+      internalID: -6691527731498808423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoodTexts_3
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 108
+        width: 328
+        height: 84
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d77fe0b1af19017e0800000000000000
+      internalID: -1796775747939010691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoodTexts_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 699
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2ed12e83b840e1e0800000000000000
+      internalID: -2170655084371648980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

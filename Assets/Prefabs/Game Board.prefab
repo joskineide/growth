@@ -1,0 +1,193 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 1958260718319798}
+  m_IsPrefabAsset: 1
+--- !u!1 &1958260718319798
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4989318907677578}
+  - component: {fileID: 114683562448452830}
+  - component: {fileID: 82057900853852254}
+  m_Layer: 0
+  m_Name: Game Board
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4989318907677578
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1958260718319798}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &82057900853852254
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1958260718319798}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &114683562448452830
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1958260718319798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7783df6ceafa084788396bbc11cbaf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  activeGroups:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  comboScore: 0
+  score: 0
+  highScore: 0
+  comboScoreText: {fileID: 0}
+  scoreText: {fileID: 0}
+  highScoreText: {fileID: 0}
+  boardSize: 0a0000000a000000
+  showClusterText: 0
+  pointNodes: []
+  adjacentNodesWeight: 
+  nodeReq: 0
+  pointNodeAmmount: 0
+  pointMultiplier: 0
+  fromCluster: 0
+  initialSpace: {fileID: 1442194667165984, guid: cb162e65611765e44a28dae04eac0bf2,
+    type: 2}
+  clusterCount: 0
+  addNodeAt: 0
+  debugText: 
+  pointTimer: 0
+  pointMaxTimer: 1
+  isScoring: 0
+  dIsSatisfied: 000000000000000000000000
+  dSatisfiedCount: 0
+  gameOver: 0
+  debugTextOver: 0
+  canSave: 0
+  isTutorial: 0
+  gameOverText: {fileID: 0}
+  audioSrc: {fileID: 0}
+  placeSound: {fileID: 8300000, guid: 7e42db3782d0b6d4882d7a738e6a0b91, type: 3}
+  finishScoreSound: {fileID: 8300000, guid: 3c9668507d8c9964fba2b90f85d5d1fb, type: 3}
+  scoreSound:
+  - {fileID: 8300000, guid: a741ecd4314bf1d4ab41c3cbb7d37abd, type: 3}
+  - {fileID: 8300000, guid: fa4e41c627ef4584ea5dfc84e781eeff, type: 3}
+  - {fileID: 8300000, guid: 86fd6a93ad5136d4b96995c441e349b1, type: 3}
+  - {fileID: 8300000, guid: e4afa85e86ce27a41a576b12929634e3, type: 3}
+  - {fileID: 8300000, guid: 7105fdffef3b72d488ca81f80b1a6b48, type: 3}
+  sparkEffect: {fileID: 1846987263582752, guid: b548af39fed3482429beecd53c3ef0a8,
+    type: 2}
