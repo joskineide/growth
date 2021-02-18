@@ -5,56 +5,84 @@ using UnityEngine;
 public class BoardManager : MonoBehaviour
 {
 
-    public GroupAdder[] activeGroups;
-    public int comboScore, score, highScore;
-    public TextMesh comboScoreText, scoreText, highScoreText;
-    public int[] boardSize;
-    public bool showClusterText;
-    [HideInInspector]
-    public NodeScript[,] nodes, clusters, adjacentClusters;
-    [HideInInspector]
-    public NodeScript[] pointNodes;
-    [HideInInspector]
-    public int[] adjacentNodesWeight;
-    [HideInInspector]
-    public int nodeReq, pointNodeAmmount, pointMultiplier, fromCluster;
-    [HideInInspector]
-    public GameObject initialSpace;
-    [HideInInspector]
-    public int clusterCount;
-    [HideInInspector]
-    public int addNodeAt;
-    [HideInInspector]
-    public string debugText;
-    [HideInInspector]
-    public float pointTimer, pointMaxTimer;
-    [HideInInspector]
-    public bool isScoring;
-    public int[] dIsSatisfied;
-    public bool dSatisfiedCount, gameOver, debugTextOver, canSave, isTutorial;
-    public GameObject gameOverText, sparkEffect;
-    public AudioSource audioSrc;
-    public AudioClip placeSound, finishScoreSound;
-    public AudioClip[] scoreSound;
-    public GameObject scoreObjects;
+    [SerializeField] private GroupAdder[] activeGroups;
+    [SerializeField] private int comboScore, score, highScore;
+    [SerializeField] private TextMesh comboScoreText, scoreText, highScoreText;
+    [SerializeField] private int[] boardSize, dIsSatisfied;
+    [SerializeField] private bool dSatisfiedCount, gameOver, debugTextOver, 
+        canSave, isTutorial, showClusterText;
+    [SerializeField] private GameObject gameOverText, sparkEffect, scoreObjects;
+    [SerializeField] private AudioSource audioSrc;
+    [SerializeField] private AudioClip placeSound, finishScoreSound;
+    [SerializeField] private AudioClip[] scoreSound;
+
+    private NodeScript[,] nodes, clusters, adjacentClusters;
+    private NodeScript[] pointNodes;
+    private int[] adjacentNodesWeight;
+    private int nodeReq, pointNodeAmmount, pointMultiplier, 
+        fromCluster, clusterCount, addNodeAt;
+    [SerializeField] private GameObject initialSpace;
+    private string debugText;
+    [SerializeField] private float pointTimer, pointMaxTimer;
+    private bool isScoring;
+
+    public bool checkTutorial(){
+        return isTutorial;
+    }
+
+    public int getBoardSizeX(){
+        return boardSize[0];
+    }
+
+    public int getBoardSizeY(){
+        return boardSize[1];
+    }
+
+    public NodeScript getNode(int x, int y){
+        return nodes[x,y];
+    }
+
+    public int getNodeId(int x, int y){
+        return getNode(x, y).getCurId();
+    }
+
+    public void setNode(int x, int y, NodeScript newNode){
+        this.nodes[x,y] = newNode;
+    }
+
+    public bool checkScoring(){
+        return isScoring;
+    }
+
+    public void addScore(int score){
+        this.score += score;
+    }
+
+    public void playPlaceSound(){
+        audioSrc.PlayOneShot(placeSound);
+    }
+    
+    public bool checkGameOver(){
+        return this.gameOver;
+    }
 
     void Awake()
     {
         gameOverText.SetActive(false);
-        if (PlayerPrefs.HasKey("highScore"))
-        {
-            highScore = PlayerPrefs.GetInt("highScore");
-        }
-        else
-            highScore = 0;
+
+        highScore = PlayerPrefs.HasKey("highScore") ? PlayerPrefs.GetInt("highScore") : 0;
+
         score = 0;
         comboScore = 0;
-        nodes = new NodeScript[boardSize[0], boardSize[1]];
-        for (int i = 0; i < boardSize[0]; i++)
+        nodes = new NodeScript[getBoardSizeX(), getBoardSizeY()];
+        for (int i = 0; i < getBoardSizeX(); i++)
         {
-            for (int j = 0; j < boardSize[1]; j++)
+            for (int j = 0; j < getBoardSizeY(); j++)
             {
-                Instantiate(initialSpace, new Vector3(i - (boardSize[0] / 2), j - (boardSize[1] / 2), 0), Quaternion.identity);
+                Instantiate(initialSpace, 
+                    new Vector3(i - (getBoardSizeX() / 2), 
+                                j - (getBoardSizeY() / 2), 
+                                0), Quaternion.identity);
             }
         }
     }
@@ -68,10 +96,7 @@ public class BoardManager : MonoBehaviour
                 LoadGame();
                 CheckEnd();
             }
-            if (gameOver)
-            {
-                RestartBoard();
-            }
+            if (gameOver) RestartBoard();
         }
         else
         {
@@ -81,32 +106,31 @@ public class BoardManager : MonoBehaviour
     }
     public void CheckEnd()
     {
-        if (isTutorial)
-        {
-            return;
-        }
+        if (isTutorial) return;
         int curPosCheck = 0;
         bool isOcupied = false;
         dIsSatisfied = new int[3];
         dSatisfiedCount = false;
-        for (int i = 0; i < boardSize[0]; i++)
+        for (int i = 0; i < getBoardSizeX(); i++)
         {
-            for (int j = 0; j < boardSize[1]; j++)
+            for (int j = 0; j < getBoardSizeY(); j++)
             {
                 for (int s = 0; s < 3; s++)
                 {
-                    int curShape = activeGroups[s].dice;
+                    int curShape = activeGroups[s].getDice();
                     dIsSatisfied[s] = 0;
                     curPosCheck = 0;
                     for (int k = 0; k < 4; k++)
                     {
                         for (int l = 0; l < 4; l++)
                         {
-                            if (i + k < boardSize[0] && j + l < boardSize[1])
+                            if (i + k < getBoardSizeX() && j + l < getBoardSizeY())
                             {
-                                isOcupied = (nodes[i + k, j + l].curId != 0);
+                                isOcupied = (getNodeId(i + k, j + l) != 0);
                             }
                             else isOcupied = true;
+
+                            
                             if (isOcupied)
                             {
                                 switch (curPosCheck)
@@ -248,17 +272,17 @@ public class BoardManager : MonoBehaviour
     {
         for (int i = 0; i < activeGroups.Length; i++)
         {
-            PlayerPrefs.SetInt("GroupID" + i, activeGroups[i].dice);
-            for (int j = 0; j < activeGroups[i].activeGroup.GetComponent<GroupNoteToPlace>().ntp.Length; j++)
+            PlayerPrefs.SetInt("GroupID" + i, activeGroups[i].getDice());
+            for (int j = 0; j < activeGroups[i].getActiveGroup().getNodesAmount(); j++)
             {
-                PlayerPrefs.SetInt("G" + i + "Node" + j, activeGroups[i].activeGroup.GetComponent<GroupNoteToPlace>().ntp[j].nodeID);
+                PlayerPrefs.SetInt("G" + i + "Node" + j, activeGroups[i].getActiveGroup().getNodeToPlace(j).getNodeId());
             }
         }
-        for (int i = 0; i < boardSize[0]; i++)
+        for (int i = 0; i < getBoardSizeX(); i++)
         {
-            for (int j = 0; j < boardSize[1]; j++)
+            for (int j = 0; j < getBoardSizeY(); j++)
             {
-                PlayerPrefs.SetInt("Node" + i + "x" + j + "y", nodes[i, j].curId);
+                PlayerPrefs.SetInt("Node" + i + "x" + j + "y", getNodeId(i, j));
             }
         }
         PlayerPrefs.SetInt("CurScore", score);
@@ -268,14 +292,14 @@ public class BoardManager : MonoBehaviour
     {
         for (int i = 0; i < activeGroups.Length; i++)
         {
-            activeGroups[i].isLoading = true;
-            activeGroups[i].dice = PlayerPrefs.GetInt("GroupID" + i);
+            activeGroups[i].setLoading(true);
+            activeGroups[i].setDice(PlayerPrefs.GetInt("GroupID" + i));
         }
-        for (int i = 0; i < boardSize[0]; i++)
+        for (int i = 0; i < getBoardSizeX(); i++)
         {
-            for (int j = 0; j < boardSize[1]; j++)
+            for (int j = 0; j < getBoardSizeY(); j++)
             {
-                nodes[i, j].ChangeTo(PlayerPrefs.GetInt("Node" + i + "x" + j + "y"));
+                getNode(i, j).ChangeTo((Enums.TileColor)PlayerPrefs.GetInt("Node" + i + "x" + j + "y"));
             }
         }
         score = PlayerPrefs.GetInt("CurScore");
@@ -291,19 +315,16 @@ public class BoardManager : MonoBehaviour
                 canSave = false;
             }
         }
-        else if (!canSave)
-        {
-            canSave = true;
-        }
+        else if (!canSave) canSave = true;
     }
     void Update()
     {
-
+        //Debug
         if (Input.GetKeyDown(KeyCode.I))
         {
-            Instantiate(sparkEffect, new Vector3(5 - (boardSize[0] / 2), 5 - (boardSize[1] / 2), -1), Quaternion.identity);
+            Instantiate(sparkEffect, new Vector3(5 - (getBoardSizeX() / 2), 5 - (getBoardSizeY() / 2), -1), Quaternion.identity);
         }
-
+        //Debug
         if (Input.GetKeyDown(KeyCode.K))
         {
             debugTextOver = true;
@@ -317,22 +338,23 @@ public class BoardManager : MonoBehaviour
             highScore = score;
             PlayerPrefs.SetInt("highScore", highScore);
         }
+        //Debug
         if (!isScoring && Input.GetKeyDown(KeyCode.R))
         {
-            for (int i = 0; i < boardSize[0]; i++)
+            for (int i = 0; i < getBoardSizeX(); i++)
             {
-                for (int j = 0; j < boardSize[1]; j++)
+                for (int j = 0; j < getBoardSizeY(); j++)
                 {
                     int randNode = Random.Range(0, 5);
-                    nodes[i, j].ChangeTo(randNode);
+                    getNode(i, j).ChangeTo((Enums.TileColor) randNode);
                     CheckBoard();
                 }
             }
         }
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            RestartBoard();
-        }
+        //Debug
+        if (Input.GetKeyDown(KeyCode.O)) RestartBoard();
+
+        //Debug
         if (Input.GetKeyDown(KeyCode.Space))
         {
             CheckBoard();
@@ -342,10 +364,7 @@ public class BoardManager : MonoBehaviour
         if (isScoring)
         {
             pointTimer += Time.deltaTime;
-            if (pointTimer > pointMaxTimer)
-            {
-                CheckClusterCanScoreOneMore();
-            }
+            if (pointTimer > pointMaxTimer) CheckClusterCanScoreOneMore();
         }
     }
     public void RestartBoard()
@@ -353,65 +372,51 @@ public class BoardManager : MonoBehaviour
         PlayerPrefs.SetInt("CurScore", 0);
         score = 0;
         comboScore = 0;
-        for (int i = 0; i < boardSize[0]; i++)
+        for (int i = 0; i < getBoardSizeX(); i++)
         {
-            for (int j = 0; j < boardSize[1]; j++)
+            for (int j = 0; j < getBoardSizeY(); j++)
             {
-                nodes[i, j].ChangeTo(0);
-                nodes[i, j].anim.SetBool("hardResset", true);
+                getNode(i,j).resetNode();
             }
         }
-        for (int i = 0; i < activeGroups.Length; i++)
-        {
-            Destroy(activeGroups[i].activeGroup.gameObject);
-        }
+        for (int i = 0; i < activeGroups.Length; i++) activeGroups[i].destroyActiveGroup();
+
         gameOver = false;
         gameOverText.SetActive(false);
     }
     void AddNode(int i, int j, int clusterID, int clusterPos)
     {
-        clusters[clusterID, clusterPos] = nodes[i, j];
+        clusters[clusterID, clusterPos] = getNode(i, j);
         addNodeAt++;
     }
     bool CheckRegistered(int i, int j)
     {
         for (int k = 0; k <= clusterCount; k++)
         {
-            for (int l = 0; l < boardSize[0] * boardSize[1]; l++)
+            for (int l = 0; l < getBoardSizeX() * getBoardSizeY(); l++)
             {
+                //Tentei colocar com &&, mas por algum motivo o c# está execultando todas as condicionais
                 if (clusters[k, l] != null)
                 {
-                    if (clusters[k, l] == nodes[i, j])
+                    if (clusters[k, l] == getNode(i, j))
                     {
                         fromCluster = k;
                         return false;
                     }
                 }
-                else { break; }
+                else break;
             }
         }
         return true;
     }
     void CheckNodeBorders(int i, int j)
     {
-        if (i >= 0 && i < boardSize[0] && j >= 0 && j < boardSize[1])
+        if (i >= 0 && i < getBoardSizeX() && j >= 0 && j < getBoardSizeY())
         {
-            if (i < boardSize[0] - 1 && nodes[i, j].curId == nodes[i + 1, j].curId)
-            {
-                CheckSide(i + 1, j);
-            }
-            if (i > 0 && nodes[i, j].curId == nodes[i - 1, j].curId)
-            {
-                CheckSide(i - 1, j);
-            }
-            if (j < boardSize[1] - 1 && nodes[i, j].curId == nodes[i, j + 1].curId)
-            {
-                CheckSide(i, j + 1);
-            }
-            if (j > 0 && nodes[i, j].curId == nodes[i, j - 1].curId)
-            {
-                CheckSide(i, j - 1);
-            }
+            if (i < getBoardSizeX() - 1 && getNodeId(i, j) == getNodeId(i + 1, j)) CheckSide(i + 1, j);
+            if (i > 0 && getNodeId(i, j) == getNodeId(i - 1, j)) CheckSide(i - 1, j);
+            if (j < getBoardSizeY() - 1 && getNodeId(i, j) == getNodeId(i, j + 1)) CheckSide(i, j + 1);
+            if (j > 0 && getNodeId(i, j) == getNodeId(i, j - 1)) CheckSide(i, j - 1);
         }
     }
     void CheckSide(int i, int j)
@@ -424,23 +429,22 @@ public class BoardManager : MonoBehaviour
     }
     public void CheckBoard()
     {
-        clusters = new NodeScript[boardSize[0] * boardSize[1], boardSize[0] * boardSize[1]];
+        clusters = new NodeScript[getBoardSizeX() * getBoardSizeY(), getBoardSizeX() * getBoardSizeY()];
         clusterCount = 0;
         addNodeAt = 0;
         nodeReq = 4;
-        for (int i = 0; i < boardSize[0]; i++)
+        for (int i = 0; i < getBoardSizeX(); i++)
         {
-            for (int j = 0; j < boardSize[1]; j++)
+            for (int j = 0; j < getBoardSizeY(); j++)
             {
-                if (nodes[i, j].curId > 0)
+                if (getNodeId(i, j) > 0 && CheckRegistered(i, j))
                 {
-                    if (CheckRegistered(i, j))
-                    {
-                        AddNode(i, j, clusterCount, addNodeAt);
-                        CheckNodeBorders(i, j);
-                        clusterCount++;
-                    }
+                    AddNode(i, j, clusterCount, addNodeAt);
+                    CheckNodeBorders(i, j);
+                    clusterCount++;
                 }
+
+
                 addNodeAt = 0;
             }
         }
@@ -449,13 +453,13 @@ public class BoardManager : MonoBehaviour
             for (int c = 0; c < clusterCount; c++)
             {
                 debugText += "Cluster " + c + ": ";
-                for (int n = 0; n < boardSize[0] * boardSize[1]; n++)
+                for (int n = 0; n < getBoardSizeX() * getBoardSizeY(); n++)
                 {
                     if (clusters[c, n] != null)
                     {
-                        debugText += clusters[c, n].nodePos[0] + "x " + clusters[c, n].nodePos[1] + "y / ";
+                        debugText += clusters[c, n].getPosX() + "x " + clusters[c, n].getPosY() + "y / ";
                     }
-                    else { break; }
+                    else break;
                 }
                 debugText += ";\n";
             }
@@ -466,7 +470,7 @@ public class BoardManager : MonoBehaviour
     public void CheckClusterCanScore()
     {
 
-        pointNodes = new NodeScript[boardSize[0] * boardSize[1]];
+        pointNodes = new NodeScript[getBoardSizeX() * getBoardSizeY()];
         pointMultiplier = 0;
         pointNodeAmmount = 0;
         float red;
@@ -481,12 +485,12 @@ public class BoardManager : MonoBehaviour
             blue = 0;
             yellow = 0;
 
-            for (int n = 0; n < boardSize[0] * boardSize[1]; n++)
+            for (int n = 0; n < getBoardSizeX() * getBoardSizeY(); n++)
             {
                 //Debug.Log(clusters);
                 if (clusters[c, n] != null)
                 {
-                    switch (clusters[c, n].curId) {
+                    switch (clusters[c, n].getCurId()) {
                         case 1: yellow++; break;
                         case 2: green++; break;
                         case 3: blue++; break;
@@ -494,7 +498,7 @@ public class BoardManager : MonoBehaviour
                     }
                     addNodeAt++;
                 }
-                else { break; }
+                else break;
             }
             if (addNodeAt >= nodeReq)
             {
@@ -511,7 +515,7 @@ public class BoardManager : MonoBehaviour
     {
         isScoring = false;
         pointTimer = 0;
-        adjacentClusters = new NodeScript[4, boardSize[0] * boardSize[1]];
+        adjacentClusters = new NodeScript[4, getBoardSizeX() * getBoardSizeY()];
         nodeReq++;
         CheckPointBorders();
 
@@ -528,11 +532,11 @@ public class BoardManager : MonoBehaviour
             blue = 0;
             yellow = 0;
 
-            for (int n = 0; n < boardSize[0] * boardSize[1]; n++)
+            for (int n = 0; n < getBoardSizeX() * getBoardSizeY(); n++)
             {
                 if (adjacentClusters[c, n] != null)
                 {
-                    switch (adjacentClusters[c, n].curId)
+                    switch (adjacentClusters[c, n].getCurId())
                     {
                         case 1: yellow++; break;
                         case 2: green++; break;
@@ -545,10 +549,11 @@ public class BoardManager : MonoBehaviour
             }
             if (addNodeAt >= nodeReq)
             {
-                if (pointMultiplier < scoreSound.Length)
+                if (pointMultiplier < scoreSound.Length) 
                     audioSrc.PlayOneShot(scoreSound[pointMultiplier]);
-                else
+                else 
                     audioSrc.PlayOneShot(scoreSound[scoreSound.Length - 1]);
+                    
                 GameObject curScoreText = Instantiate(scoreObjects, this.transform.position, this.transform.rotation);
                 curScoreText.GetComponent<ScoreTextScript>().Setup(red, green, blue, yellow, pointMultiplier);
                 pointMultiplier++;
@@ -561,27 +566,24 @@ public class BoardManager : MonoBehaviour
             comboScore = 0;
             for (int d = 0; d < pointNodes.Length; d++)
             {
-                if (pointNodes[d] != null)
-                {
-                    comboScore += 20 * pointMultiplier;
-                }
-                else { break; }
+                if (pointNodes[d] != null) addComboScore();
+                else break; 
             }
         }
         if (!isScoring)
         {
             comboScore = 0;
-            //Fazer toda a parte de score
             for (int d = 0; d < pointNodes.Length; d++)
             {
                 if (pointNodes[d] != null)
                 {
-                    comboScore += 20 * pointMultiplier;
-                    //Debug.Log("Posição x:"+pointNodes[d].nodePos[0]+" y:"+pointNodes[d].nodePos[1]);
-                    //Debug.Log("Id atual: "+pointNodes[d].curId+" Id passado:"+pointNodes[d].lastId);
-                    GameObject spark = Instantiate(sparkEffect, new Vector3(pointNodes[d].nodePos[0] - (boardSize[0] / 2), pointNodes[d].nodePos[1] - (boardSize[1] / 2), 0), Quaternion.identity);
+                    addComboScore();
+                    GameObject spark = Instantiate(sparkEffect, 
+                        new Vector3(pointNodes[d].getPosX() - (getBoardSizeX() / 2), 
+                                    pointNodes[d].getPosY() - (getBoardSizeY() / 2),
+                                    0), Quaternion.identity);
                     SparkleScript sparkS = spark.GetComponent<SparkleScript>();
-                    sparkS.colorId = pointNodes[d].lastId;
+                    sparkS.setColorId(pointNodes[d].getLastId());
                     pointNodes[d].ChangeTo(0);
                     pointNodes[d] = null;
                 }
@@ -600,129 +602,135 @@ public class BoardManager : MonoBehaviour
         {
             if (pointNodes[i] != null)
             {
-                CheckPointBorderOneMore(pointNodes[i].nodePos[0] + 1, pointNodes[i].nodePos[1]);
-                CheckPointBorderOneMore(pointNodes[i].nodePos[0] - 1, pointNodes[i].nodePos[1]);
-                CheckPointBorderOneMore(pointNodes[i].nodePos[0], pointNodes[i].nodePos[1] + 1);
-                CheckPointBorderOneMore(pointNodes[i].nodePos[0], pointNodes[i].nodePos[1] - 1);
+                CheckPointBorderOneMore(pointNodes[i].getPosX() + 1, pointNodes[i].getPosY());
+                CheckPointBorderOneMore(pointNodes[i].getPosX() - 1, pointNodes[i].getPosY());
+                CheckPointBorderOneMore(pointNodes[i].getPosX(), pointNodes[i].getPosY() + 1);
+                CheckPointBorderOneMore(pointNodes[i].getPosX(), pointNodes[i].getPosY() - 1);
             }
-            else { break; }
+            else break;
         }
     }
     bool CanAdd(int i, int j)
     {
-        for (int l = 0; l < adjacentNodesWeight[nodes[i, j].curId - 1]; l++)
+        for (int l = 0; l < adjacentNodesWeight[getNodeId(i, j) - 1]; l++)
         {
-            if (adjacentClusters[nodes[i, j].curId - 1, l] == nodes[i, j])
-            {
-                return false;
-            }
+            if (adjacentClusters[getNodeId(i, j) - 1, l] == getNode(i, j)) return false;
         }
         return true;
     }
     void CheckPointBorderOneMore(int i, int j)
     {
-        if (i >= 0 && j >= 0 && i < boardSize[0] && j < boardSize[1] && nodes[i, j].curId > 0 && nodes[i, j].curId < 5)
+        if (i >= 0 && 
+            j >= 0 && 
+            i < getBoardSizeX() && 
+            j < getBoardSizeY() && 
+            getNodeId(i, j) > 0 && 
+            getNodeId(i, j) < 5 && 
+            !CheckRegistered(i, j) &&
+            CanAdd(i, j))
         {
-            if (!CheckRegistered(i, j))
+            for (int y = 0; y < getBoardSizeX() * getBoardSizeY(); y++)
             {
-                if (CanAdd(i, j))
+                if (clusters[fromCluster, y] != null)
                 {
-                    for (int y = 0; y < boardSize[0] * boardSize[1]; y++)
-                    {
-                        if (clusters[fromCluster, y] != null)
-                        {
-                            adjacentClusters[nodes[i, j].curId - 1, adjacentNodesWeight[nodes[i, j].curId - 1]] = clusters[fromCluster, y];
-                            adjacentNodesWeight[nodes[i, j].curId - 1]++;
-                        }
-                        else { break; }
-                    }
+                    adjacentClusters[getNodeId(i, j) - 1, adjacentNodesWeight[getNodeId(i, j) - 1]] = clusters[fromCluster, y];
+                    adjacentNodesWeight[getNodeId(i, j) - 1]++;
                 }
+                else break;
             }
         }
     }
     void ChangingToPointNodesOneMore(int c)
     {
-        for (int n = 0; n < boardSize[0] * boardSize[1]; n++)
+        for (int n = 0; n < getBoardSizeX() * getBoardSizeY(); n++)
         {
             if (adjacentClusters[c, n] != null)
             {
-                adjacentClusters[c, n].ChangeTo(5);
+                adjacentClusters[c, n].ChangeTo(Enums.TileColor.White);
                 pointNodes[pointNodeAmmount] = adjacentClusters[c, n];
                 pointNodeAmmount++;
             }
-            else { break; }
+            else break;
         }
     }
     void ChangingToPointNodes(int c)
     {
-        for (int n = 0; n < boardSize[0] * boardSize[1]; n++)
+        for (int n = 0; n < getBoardSizeX() * getBoardSizeY(); n++)
         {
             if (clusters[c, n] != null)
             {
-                clusters[c, n].ChangeTo(5);
+                clusters[c, n].ChangeTo(Enums.TileColor.White);
                 pointNodes[pointNodeAmmount] = clusters[c, n];
                 pointNodeAmmount++;
             }
-            else { break; }
+            else break;
         }
         if (isScoring)
         {
             comboScore = 0;
             for (int d = 0; d < pointNodes.Length; d++)
             {
-                if (pointNodes[d] != null)
-                {
-                    comboScore += 20 * pointMultiplier;
-                }
-                else { break; }
+                if(pointNodes[d] != null) addComboScore();
+                else break;
             }
         }
+    }
+
+    private void addComboScore(){
+        comboScore += 20 * pointMultiplier;
+    }
+
+    private void alterNode(int x, int y, Enums.TileColor target){
+        getNode(x, y).ChangeTo(target);
     }
 
     void SetupTutorialBoard()
     {
         //#!!#
-        nodes[1, 8].ChangeTo(1);
-        nodes[4, 8].ChangeTo(1);
-        nodes[7, 9].ChangeTo(1);
-        nodes[8, 9].ChangeTo(1);
-        nodes[9, 8].ChangeTo(1);
-        nodes[7, 6].ChangeTo(1);
-        nodes[7, 7].ChangeTo(2);
-        nodes[5, 7].ChangeTo(4);
-        nodes[6, 7].ChangeTo(4);
-        nodes[8, 6].ChangeTo(4);
-        nodes[8, 5].ChangeTo(4);
-        nodes[8, 4].ChangeTo(4);
-        nodes[0, 0].ChangeTo(4);
-        nodes[1, 0].ChangeTo(4);
-        nodes[2, 0].ChangeTo(2);
-        nodes[5, 0].ChangeTo(4);
-        nodes[6, 0].ChangeTo(4);
-        nodes[7, 0].ChangeTo(3);
-        nodes[8, 0].ChangeTo(2);
-        nodes[9, 0].ChangeTo(1);
-        nodes[3, 1].ChangeTo(2);
-        nodes[5, 1].ChangeTo(4);
-        nodes[6, 1].ChangeTo(3);
-        nodes[7, 1].ChangeTo(2);
-        nodes[8, 1].ChangeTo(1);
-        nodes[9, 1].ChangeTo(4);
-        nodes[2, 2].ChangeTo(4);
-        nodes[3, 2].ChangeTo(1);
-        nodes[5, 2].ChangeTo(2);
-        nodes[6, 2].ChangeTo(3);
-        nodes[7, 2].ChangeTo(1);
-        nodes[8, 2].ChangeTo(1);
-        nodes[9, 2].ChangeTo(4);
-        nodes[2, 3].ChangeTo(4);
-        nodes[5, 3].ChangeTo(1);
-        nodes[6, 3].ChangeTo(1);
-        nodes[9, 3].ChangeTo(4);
-        nodes[2, 4].ChangeTo(4);
-        nodes[5, 4].ChangeTo(4);
-        nodes[4, 5].ChangeTo(4);
-        nodes[5, 5].ChangeTo(4);
+        alterNode(1, 8, Enums.TileColor.Yellow);
+        alterNode(4, 8, Enums.TileColor.Yellow);
+        alterNode(7, 9, Enums.TileColor.Yellow);
+        alterNode(8, 9, Enums.TileColor.Yellow);
+        alterNode(9, 8, Enums.TileColor.Yellow);
+        alterNode(7, 6, Enums.TileColor.Yellow);
+        alterNode(9, 0, Enums.TileColor.Yellow);
+        alterNode(8, 1, Enums.TileColor.Yellow);
+        alterNode(7, 2, Enums.TileColor.Yellow);
+        alterNode(8, 2, Enums.TileColor.Yellow);
+        alterNode(3, 2, Enums.TileColor.Yellow);
+        alterNode(5, 3, Enums.TileColor.Yellow);
+        alterNode(6, 3, Enums.TileColor.Yellow);
+        alterNode(7, 2, Enums.TileColor.Yellow);
 
+        alterNode(5, 2, Enums.TileColor.Green);
+        alterNode(7, 7, Enums.TileColor.Green);
+        alterNode(2, 0, Enums.TileColor.Green);
+        alterNode(8, 0, Enums.TileColor.Green);
+        alterNode(3, 1, Enums.TileColor.Green);
+        alterNode(7, 1, Enums.TileColor.Green);
+
+        alterNode(6, 1, Enums.TileColor.Blue);
+        alterNode(7, 0, Enums.TileColor.Blue);
+        alterNode(6, 2, Enums.TileColor.Blue);
+
+        alterNode(5, 7, Enums.TileColor.Red);
+        alterNode(6, 7, Enums.TileColor.Red);
+        alterNode(8, 6, Enums.TileColor.Red);
+        alterNode(8, 5, Enums.TileColor.Red);
+        alterNode(8, 4, Enums.TileColor.Red);
+        alterNode(0, 0, Enums.TileColor.Red);
+        alterNode(1, 0, Enums.TileColor.Red);
+        alterNode(5, 0, Enums.TileColor.Red);
+        alterNode(6, 0, Enums.TileColor.Red);
+        alterNode(5, 1, Enums.TileColor.Red);
+        alterNode(9, 1, Enums.TileColor.Red);
+        alterNode(2, 2, Enums.TileColor.Red);
+        alterNode(9, 2, Enums.TileColor.Red);
+        alterNode(2, 3, Enums.TileColor.Red);
+        alterNode(9, 3, Enums.TileColor.Red);
+        alterNode(2, 4, Enums.TileColor.Red);
+        alterNode(5, 4, Enums.TileColor.Red);
+        alterNode(4, 5, Enums.TileColor.Red);
+        alterNode(5, 5, Enums.TileColor.Red);
     }
 }

@@ -4,11 +4,42 @@ using UnityEngine;
 
 public class OverallGameManager : MonoBehaviour {
 
-    public bool canInteractMenu;
-    public bool isMute;
-    public bool isColorBlind;
-    public static OverallGameManager ogm;
+    [SerializeField] private bool canInteractMenu;
+    private bool isMute;
+    private bool isColorBlind;
+    private static OverallGameManager ogm;
 
+    public bool checkMute(){
+        return this.isMute;
+    }
+
+    public void setMute(bool mute){
+        this.isMute = mute;
+    }
+
+    public bool checkColorBlind(){
+        return this.isColorBlind;
+    }
+
+    public void setColorBlind(bool colorBlind){
+        this.isColorBlind = colorBlind;
+    }
+
+    public bool checkInteractMenu(){
+        return this.canInteractMenu;
+    }
+
+    public void setInteractMenu(bool interactMenu){
+        this.canInteractMenu = interactMenu;
+    }
+
+    public void toggleMute(){
+        this.isMute = !this.isMute;
+    }
+
+    public void toggleColorblind(){
+        this.isColorBlind = !this.isColorBlind;
+    }
 
     private void Awake()
     {
@@ -23,21 +54,18 @@ public class OverallGameManager : MonoBehaviour {
 		}
     }
 
-    // Use this for initialization
-    void Start () {
-
-		
-	}
-	
-	// Update is called once per frame
 	void Update () {
-         if (isMute)	
-         {
-             AudioListener.volume = 0;
-         }
-         else
-         {
-            AudioListener.volume = 1;
-         }	
+        AudioListener.volume = isMute ? 0 : 1;	
 	}
 }
+
+public static class Enums {
+    public enum TileColor{
+        Empty,
+        Yellow,
+        Green,
+        Blue,
+        Red,
+        White
+    }
+} 

@@ -37,12 +37,7 @@ public class ScoreTextScript : MonoBehaviour
         actualSprite = GetComponent<SpriteRenderer>();
         Debug.Log(actualSprite);
 
-        if (curPos >= sprites.Length){
-            actualSprite.sprite = sprites[sprites.Length - 1];
-        }
-        else {
-            actualSprite.sprite = sprites[curPos]; 
-        }
+        actualSprite.sprite = curPos >= sprites.Length ? sprites[sprites.Length - 1] : sprites[curPos];
     
         redWeight = red + (yellow / 2);
         blueWeight = blue;
@@ -64,7 +59,7 @@ public class ScoreTextScript : MonoBehaviour
         }
         
         if(redWeight != 0)
-            redWeight = redWeight/dominantWeight;
+            redWeight = redWeight / dominantWeight;
         if (greenWeight != 0)
             greenWeight = greenWeight / dominantWeight;
         if (blueWeight != 0)
@@ -81,9 +76,6 @@ public class ScoreTextScript : MonoBehaviour
         this.transform.position = new Vector3(this.transform.position.x,curRise, this.transform.position.z);
         this.transform.localScale += new Vector3(growSpeed, growSpeed, growSpeed);
         actualSprite.color = new Color(redWeight, greenWeight, blueWeight, curFade);
-        if (curFade <= 0)
-        {
-            Destroy(gameObject);
-        }
+        if (curFade <= 0) Destroy(gameObject);
     }
 }

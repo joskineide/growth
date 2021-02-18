@@ -5,11 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class MenuButton : MonoBehaviour {
 
-    public bool goesToScene;
-    public int whereTo;
-    public GameObject popUp;
-    public bool canInteract;
-    public OverallGameManager overallManager;
+    [SerializeField] private bool goesToScene, canInteract;
+    [SerializeField] private int whereTo;
+    [SerializeField] private GameObject popUp;
+    [SerializeField] private OverallGameManager overallManager;
 
     private void Start()
     {
@@ -18,7 +17,7 @@ public class MenuButton : MonoBehaviour {
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0) && overallManager.canInteractMenu)
+        if (Input.GetMouseButtonDown(0) && overallManager.checkInteractMenu())
         {
             if (goesToScene)
             {
@@ -27,7 +26,7 @@ public class MenuButton : MonoBehaviour {
             else
             {
                 popUp.SetActive(true);
-                overallManager.canInteractMenu = false;
+                overallManager.setInteractMenu(false);
             }
         }
     }

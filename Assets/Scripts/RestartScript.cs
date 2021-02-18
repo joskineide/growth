@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class RestartScript : MonoBehaviour {
 
-    public BoardManager bm;
+    private BoardManager bm;
 
     void Start(){
         bm = FindObjectOfType<BoardManager>();
@@ -12,7 +12,7 @@ public class RestartScript : MonoBehaviour {
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(0) &&!bm.isScoring)
+        if (Input.GetMouseButtonDown(0) &&!bm.checkScoring())
         {
             FindObjectOfType<BoardManager>().RestartBoard();
         }

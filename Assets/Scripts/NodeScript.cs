@@ -4,41 +4,55 @@ using UnityEngine;
 
 public class NodeScript : MonoBehaviour {
 
-    [HideInInspector]
-    public int[] nodePos;
-    [HideInInspector]
-    public int curId, lastId;
-    [HideInInspector]
-    public Sprite[] curSprite;
-    [HideInInspector]
-    public BoardManager bm;
-
-
+    [SerializeField] private int[] nodePos;
+    [SerializeField] private int curId, lastId;
+    [SerializeField] private Sprite[] curSprite;
+    private BoardManager bm;
 	private bool isSparking;
 	private float sparkTimer;
+	private Animator anim;
 
-	public Animator anim;
+    public int getPosX(){
+        return nodePos[0];
+    }
+
+    public int getPosY(){
+        return nodePos[1];
+    }
+
+    public void resetNode(){
+        ChangeTo(0);
+        anim.SetBool("hardResset", true);
+    }
+
+    public int getCurId(){
+        return this.curId;
+    }
+
+    public int getLastId(){
+        return this.lastId;
+    }
 
 	void Awake () {
         bm = FindObjectOfType<BoardManager>();
 		anim = GetComponent<Animator> ();
         nodePos = new int[2];
-        nodePos[0] = (int)transform.position.x + (bm.boardSize[0] / 2);
-        nodePos[1] = (int)transform.position.y + (bm.boardSize[1] / 2);
-        bm.nodes[nodePos[0], nodePos[1]] = this;
+        nodePos[0] = (int)transform.position.x + (bm.getBoardSizeX() / 2);
+        nodePos[1] = (int)transform.position.y + (bm.getBoardSizeY() / 2);
+        bm.setNode(nodePos[0], nodePos[1], this);
         ChangeTo(0);
 		sparkTimer = Random.Range (50f, 600f);
 	}
-    public void ChangeTo(int i)
+    public void ChangeTo(Enums.TileColor tileColor)
     {
-        if (i != 0)
+        Debug.Log("Changing color x: " + nodePos[0] + " y: " + nodePos[1] + " Color: " + tileColor);
+        if (tileColor != Enums.TileColor.Empty)
         {
-          anim.SetBool("hardResset", false);
+            anim.SetBool("hardResset", false);
         }
         lastId = curId;
         anim.SetInteger ("lastType", curId);
-        curId = i;
-        GetComponent<SpriteRenderer>().sprite = curSprite[i];
+        curId = (int) tileColor;
     }
 	void Update()
 	{
@@ -53,8 +67,5 @@ public class NodeScript : MonoBehaviour {
 			sparkTimer = Random.Range (50f, 600f);
 			isSparking = false;
 		}
-
-
-
 	}
 }

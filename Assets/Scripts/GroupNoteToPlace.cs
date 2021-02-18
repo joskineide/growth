@@ -4,19 +4,35 @@ using UnityEngine;
 
 public class GroupNoteToPlace : MonoBehaviour {
 
-    public int groupID, tutorialCount;
+    private int groupID, tutorialCount;
     [HideInInspector]
-    public BoardManager bm;
+    private BoardManager bm;
     [HideInInspector]
-    public NodeToPlace[] ntp;
+    private NodeToPlace[] ntp;
     [HideInInspector]
-    public bool canPlace;
+    private bool canPlace;
     [HideInInspector]
-    public Vector3 initialPos;
-    public bool selected, isLoading, canSound;
-    public AudioSource audioSrc;
-    public AudioClip pickUpSound;
-    public bool[,,] tutorialExpected;
+    private Vector3 initialPos;
+    private bool selected, isLoading, canSound;
+    private AudioSource audioSrc;
+    [SerializeField] private AudioClip pickUpSound;
+    private bool[,,] tutorialExpected;
+
+    public int getNodesAmount(){
+        return this.ntp.Length;
+    }
+
+    public NodeToPlace getNodeToPlace(int i){
+        return this.ntp[i];
+    }
+
+    public void setLoading(bool loading){
+        this.isLoading = loading;
+    }
+
+    public void setGroupId(int groupID){
+        this.groupID = groupID;
+    }
 
 
 	public float size;
@@ -27,7 +43,7 @@ public class GroupNoteToPlace : MonoBehaviour {
         initialPos = transform.position;
         ntp = GetComponentsInChildren<NodeToPlace>();
         bm = FindObjectOfType<BoardManager>();
-        if(bm.isTutorial)
+        if(bm.checkTutorial())
         {   
             //Aqui vai settar todos as posições onde os grupos podems ser encaixados #!!#
             tutorialExpected = new bool[3,10,10];
@@ -41,8 +57,8 @@ public class GroupNoteToPlace : MonoBehaviour {
             for (int i = 0; i < ntp.Length; i++)
             {
                 Debug.Log("Group ID" + groupID + "Adding node..."+i);
-                ntp[i].isLoading = true;
-                ntp[i].nodeID = PlayerPrefs.GetInt("G" + groupID + "Node" + i);
+                ntp[i].setLoading(true);
+                ntp[i].setNodeId(PlayerPrefs.GetInt("G" + groupID + "Node" + i));
             }
         }
 	}
@@ -50,24 +66,25 @@ public class GroupNoteToPlace : MonoBehaviour {
     {
         if (!Input.GetMouseButton(0) && transform.position != initialPos && selected == true)
         {
-            if (!bm.isScoring)
+            if (!bm.checkScoring())
             {
                 canPlace = true;
                 for (int i = 0; i < ntp.Length; i++)
                 {
                     if (!ntp[i].CheckAvailable())
                     {
-                        if(!bm.isTutorial)
+                        if(!bm.checkTutorial())
                         {
                             canPlace = false;
                         }
                     }
                 }
-                if(bm.isTutorial){
-                    if(ntp[0].posX >= 0 &&  ntp[0].posX < bm.boardSize[0] && ntp[0].posY >= 0 && ntp[0].posY < bm.boardSize[1])
+                if(bm.checkTutorial()){
+                    if(ntp[0].getPosX() >= 0 &&  ntp[0].getPosX() < bm.getBoardSizeX()                    
+                        && ntp[0].getPosY() >= 0 && ntp[0].getPosY() < bm.getBoardSizeY())
                     {
-                        Debug.Log("Posx:"+ntp[0].posX+" PosY:"+ntp[0].posY);
-                        canPlace = tutorialExpected[ntp.Length-2,ntp[0].posX,ntp[0].posY];
+                        Debug.Log("Posx:"+ntp[0].getPosX() +" PosY:"+ntp[0].getPosY());
+                        canPlace = tutorialExpected[ntp.Length-2,ntp[0].getPosX(), ntp[0].getPosY()];
                     }
                     else
                     {
@@ -78,10 +95,10 @@ public class GroupNoteToPlace : MonoBehaviour {
                 {
                     for (int i = 0; i < ntp.Length; i++)
                     {
-                        bm.score += 5;
-                        bm.nodes[ntp[i].posX, ntp[i].posY].ChangeTo(ntp[i].nodeID);
+                        bm.addScore(5);
+                        bm.getNode(ntp[i].getPosX(), ntp[i].getPosY()).ChangeTo(ntp[i].getTileColor());
                     }
-                    bm.audioSrc.PlayOneShot(bm.placeSound);
+                    bm.playPlaceSound();
                     Debug.Log("PLACIN DOWN");
                     bm.CheckBoard();
                     bm.CheckClusterCanScore();
@@ -105,10 +122,10 @@ public class GroupNoteToPlace : MonoBehaviour {
     }
     void OnMouseDrag()
     {
-        if (!bm.gameOver)
+        if (!bm.checkGameOver())
         {
             transform.localScale = new Vector2(1, 1);
-            if (!bm.isScoring)
+            if (!bm.checkScoring())
             {
                 if (canSound)
                 {

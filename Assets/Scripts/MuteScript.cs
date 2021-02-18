@@ -4,30 +4,28 @@ using UnityEngine;
 
 public class MuteScript : MonoBehaviour {
 
-	public OverallGameManager ogm;
-	public bool isActive;
-	public Sprite[] states;
+	private OverallGameManager ogm;
+	private bool isActive;
+	[SerializeField] private Sprite[] states;
 
 	void Start()
 	{
 		ogm = FindObjectOfType<OverallGameManager>();
-		isActive = ogm.isMute;
-		if (isActive)
-			GetComponent<SpriteRenderer>().sprite = states[0];
-		else
-			GetComponent<SpriteRenderer>().sprite = states[1];
+		isActive = ogm.checkMute();
+		updateSprite();
 	}
 
-	 private void OnMouseOver()
+	private void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0))
         {
             isActive = !isActive;
-			ogm.isMute = isActive;
-			if (isActive)
-				GetComponent<SpriteRenderer>().sprite = states[0];
-			else
-				GetComponent<SpriteRenderer>().sprite = states[1];
+			ogm.setMute(isActive);
+			updateSprite();
         }
     }
+
+	private void updateSprite(){
+		GetComponent<SpriteRenderer>().sprite = isActive ? states[0] : states[1];
+	}
 }

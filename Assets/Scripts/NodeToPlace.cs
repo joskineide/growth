@@ -3,21 +3,43 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class NodeToPlace : MonoBehaviour {
-    [HideInInspector]
-    public int nodeID;
-    [HideInInspector]
-    public int posX;
-    [HideInInspector]
-    public int posY;
-    [HideInInspector]
-    public BoardManager bm;
-    [HideInInspector]
-    public GroupNoteToPlace gntp;
-    [HideInInspector]
-    public SpriteRenderer actualSprite;
-    [HideInInspector]
-    public Sprite[] sprites;
-    public bool isLoading;
+
+    private int nodeID;
+    private int posX;
+    private int posY;
+    private BoardManager bm;
+    private GroupNoteToPlace gntp;
+    private SpriteRenderer actualSprite;
+    [SerializeField] private Sprite[] sprites;
+    private bool isLoading;
+
+    public int getPosX(){
+        return this.posX;
+    }
+
+    public int getPosY(){
+        return this.posY;
+    }
+
+    public bool checkLoading(){
+        return this.isLoading;
+    }
+
+    public void setLoading(bool loading){
+        this.isLoading = loading;
+    }
+
+    public void setNodeId(int id){
+        this.nodeID = id;
+    }
+
+    public int getNodeId(){
+        return this.nodeID;
+    }
+
+    public Enums.TileColor getTileColor(){
+        return (Enums.TileColor) this.nodeID;
+    }
 
 	void Start () {
         bm = FindObjectOfType<BoardManager>();
@@ -39,16 +61,11 @@ public class NodeToPlace : MonoBehaviour {
 
     public bool CheckAvailable() 
     {
-        posX = Mathf.RoundToInt(transform.position.x + (bm.boardSize[0] / 2));
-        posY = Mathf.RoundToInt(transform.position.y + (bm.boardSize[1] / 2));
-        if (posX >= 0 && posX < bm.boardSize[0] && posY >= 0 && posY < bm.boardSize[1])
-        {
-            if (bm.nodes[posX,posY].curId == 0)
-            {
-                return true;
-            }
-        }
-        return false;
+        posX = Mathf.RoundToInt(transform.position.x + (bm.getBoardSizeX() / 2));
+        posY = Mathf.RoundToInt(transform.position.y + (bm.getBoardSizeY() / 2));
+        return posX >= 0 && posX < bm.getBoardSizeX() && 
+                posY >= 0 && posY < bm.getBoardSizeY() &&
+                bm.getNodeId(posX,posY) == 0;
     }
 
     public void changeId(int toId)

@@ -4,33 +4,32 @@ using UnityEngine;
 
 public class PopUpButton : MonoBehaviour {
 
-    public OverallGameManager overallManager;
-    public int type;
-    public bool isEnabled;
-    public GameObject selectedSprite;
+    private OverallGameManager overallManager;
+    [SerializeField] private int type;
+    private bool isEnabled;
+    private GameObject selectedSprite;
 
     private void Start()
     {
         overallManager = FindObjectOfType<OverallGameManager>();
     }
 
-    // Update is called once per frame
     private void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0))
         {
             if (type == 0)
             {
-                overallManager.canInteractMenu = true;
+                overallManager.setInteractMenu(true);
                 transform.parent.gameObject.SetActive(false);
             }
             else if (type == 1)
             {
-                overallManager.isMute = !overallManager.isMute;
+                overallManager.toggleMute();
             }
             else if (type == 2)
             {
-                overallManager.isColorBlind = !overallManager.isColorBlind;
+                overallManager.toggleColorblind();
             }
         }
     }
@@ -39,8 +38,8 @@ public class PopUpButton : MonoBehaviour {
     {
         if(selectedSprite != null) selectedSprite.SetActive(isEnabled);
         if (type == 1)
-            isEnabled = overallManager.isMute;
+            isEnabled = overallManager.checkMute();
         else if (type == 2)
-            isEnabled = overallManager.isColorBlind;
+            isEnabled = overallManager.checkColorBlind();
     }
 }
