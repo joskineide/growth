@@ -32,10 +32,10 @@ public class ScoreTextScript : MonoBehaviour
 
     public void Setup(float red, float green, float blue, float yellow, int curPos) {
 
-        Debug.Log(curPos);
-        Debug.Log(sprites.Length);
+        // Debug.Log(curPos);
+        // Debug.Log(sprites.Length);
         actualSprite = GetComponent<SpriteRenderer>();
-        Debug.Log(actualSprite);
+        // Debug.Log(actualSprite);
 
         actualSprite.sprite = curPos >= sprites.Length ? sprites[sprites.Length - 1] : sprites[curPos];
     
@@ -65,9 +65,9 @@ public class ScoreTextScript : MonoBehaviour
         if (blueWeight != 0)
             blueWeight = blueWeight / dominantWeight;
 
-        Debug.Log("Red 2: " + redWeight);
-        Debug.Log("Green 2: " + greenWeight);
-        Debug.Log("Blue 2: " + blueWeight);
+        // Debug.Log("Red 2: " + redWeight);
+        // Debug.Log("Green 2: " + greenWeight);
+        // Debug.Log("Blue 2: " + blueWeight);
 
     }
     void Update(){ 

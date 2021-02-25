@@ -265,7 +265,7 @@ public class BoardManager : MonoBehaviour
         {
             gameOver = true;
             gameOverText.SetActive(true);
-            Debug.Log("GAME OVER");
+            // Debug.Log("GAME OVER");
         }
     }
     void SaveGame()
@@ -286,7 +286,7 @@ public class BoardManager : MonoBehaviour
             }
         }
         PlayerPrefs.SetInt("CurScore", score);
-        Debug.Log("Saving...");
+        // Debug.Log("Saving...");
     }
     void LoadGame()
     {
@@ -303,7 +303,7 @@ public class BoardManager : MonoBehaviour
             }
         }
         score = PlayerPrefs.GetInt("CurScore");
-        Debug.Log("Loading...");
+        // Debug.Log("Loading...");
     }
     void OnApplicationPause(bool pause)
     {
@@ -463,7 +463,7 @@ public class BoardManager : MonoBehaviour
                 }
                 debugText += ";\n";
             }
-            Debug.Log(debugText);
+            // Debug.Log(debugText);
             debugText = "";
         }
     }
@@ -592,7 +592,7 @@ public class BoardManager : MonoBehaviour
             score += comboScore;
             CheckEnd();
             audioSrc.PlayOneShot(finishScoreSound);
-            Debug.Log("CASHING THE FUCK OUT");
+            // Debug.Log("CASHING THE FUCK OUT");
         }
     }
     void CheckPointBorders()

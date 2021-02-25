@@ -56,7 +56,7 @@ public class GroupNoteToPlace : MonoBehaviour {
         {
             for (int i = 0; i < ntp.Length; i++)
             {
-                Debug.Log("Group ID" + groupID + "Adding node..."+i);
+                // Debug.Log("Group ID" + groupID + "Adding node..."+i);
                 ntp[i].setLoading(true);
                 ntp[i].setNodeId(PlayerPrefs.GetInt("G" + groupID + "Node" + i));
             }
@@ -83,7 +83,7 @@ public class GroupNoteToPlace : MonoBehaviour {
                     if(ntp[0].getPosX() >= 0 &&  ntp[0].getPosX() < bm.getBoardSizeX()                    
                         && ntp[0].getPosY() >= 0 && ntp[0].getPosY() < bm.getBoardSizeY())
                     {
-                        Debug.Log("Posx:"+ntp[0].getPosX() +" PosY:"+ntp[0].getPosY());
+                        // Debug.Log("Posx:"+ntp[0].getPosX() +" PosY:"+ntp[0].getPosY());
                         canPlace = tutorialExpected[ntp.Length-2,ntp[0].getPosX(), ntp[0].getPosY()];
                     }
                     else
@@ -99,7 +99,7 @@ public class GroupNoteToPlace : MonoBehaviour {
                         bm.getNode(ntp[i].getPosX(), ntp[i].getPosY()).ChangeTo(ntp[i].getTileColor());
                     }
                     bm.playPlaceSound();
-                    Debug.Log("PLACIN DOWN");
+                    // Debug.Log("PLACIN DOWN");
                     bm.CheckBoard();
                     bm.CheckClusterCanScore();
                     transform.position = initialPos;
@@ -109,7 +109,7 @@ public class GroupNoteToPlace : MonoBehaviour {
             if (canPlace == false)
             {
                 audioSrc.PlayOneShot(pickUpSound);
-                Debug.Log("CANT PLACE DOWN FOOL");
+                // Debug.Log("CANT PLACE DOWN FOOL");
                 transform.position = initialPos;
                 selected = false;
             }
@@ -130,7 +130,7 @@ public class GroupNoteToPlace : MonoBehaviour {
                 if (canSound)
                 {
                     audioSrc.PlayOneShot(pickUpSound);
-                    Debug.Log("PICKIN UP");
+                    // Debug.Log("PICKIN UP");
                     canSound = false;
                 }
                 Vector3 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 9.9f);

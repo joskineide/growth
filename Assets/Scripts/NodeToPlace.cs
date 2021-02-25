@@ -45,10 +45,8 @@ public class NodeToPlace : MonoBehaviour {
         bm = FindObjectOfType<BoardManager>();
         gntp = GetComponentInParent<GroupNoteToPlace>();
         actualSprite = GetComponent<SpriteRenderer>();
-        if(!isLoading)
-            nodeID = Random.Range(1, 5);
+        if(!isLoading) nodeID = Random.Range(1, 5);
         actualSprite.sprite = sprites[nodeID - 1];
-
 	}
     void Update()
     {

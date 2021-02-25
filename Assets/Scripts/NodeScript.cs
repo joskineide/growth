@@ -45,7 +45,7 @@ public class NodeScript : MonoBehaviour {
 	}
     public void ChangeTo(Enums.TileColor tileColor)
     {
-        Debug.Log("Changing color x: " + nodePos[0] + " y: " + nodePos[1] + " Color: " + tileColor);
+        // Debug.Log("Changing color x: " + nodePos[0] + " y: " + nodePos[1] + " Color: " + tileColor);
         if (tileColor != Enums.TileColor.Empty)
         {
             anim.SetBool("hardResset", false);
