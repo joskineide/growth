@@ -19,6 +19,7 @@ public class GroupNoteToPlace : MonoBehaviour {
     private bool[,,] tutorialExpected;
 
     public int getNodesAmount(){
+        if(ntp == null) return 0;
         return this.ntp.Length;
     }
 

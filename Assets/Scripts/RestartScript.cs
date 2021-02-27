@@ -14,7 +14,7 @@ public class RestartScript : MonoBehaviour {
     {
         if (Input.GetMouseButtonDown(0) &&!bm.checkScoring())
         {
-            FindObjectOfType<BoardManager>().RestartBoard();
+            bm.RestartBoard();
         }
     }
 }

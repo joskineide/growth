@@ -52,9 +52,6 @@ public class TutorialMask : MonoBehaviour
                 (curStep.isAction && curNodeGroup != groupAdder.getTutorialCount())
             )
             && !waiting){
-            Debug.Log("Updating Procede");
-            Debug.Log("Is action: " + curStep.isAction + " Button Down: " + Input.GetMouseButtonDown(0) + 
-                        " CurNodeGroup: " + curNodeGroup + " TutorialCount - 1: " + (groupAdder.getTutorialCount()));
             canProceede = true;
         }
     }
@@ -90,6 +87,7 @@ public class TutorialMask : MonoBehaviour
         steps.RemoveAt(0);
         if(steps.Count <= 0){
             gameManager.backToMainMenu();
+            return;
         } 
         curStep = steps[0];
         StartCoroutine(waitForProcede());

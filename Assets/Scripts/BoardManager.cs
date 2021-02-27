@@ -268,7 +268,7 @@ public class BoardManager : MonoBehaviour
             // Debug.Log("GAME OVER");
         }
     }
-    void SaveGame()
+    public void SaveGame()
     {
         for (int i = 0; i < activeGroups.Length; i++)
         {
