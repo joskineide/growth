@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class OverallGameManager : MonoBehaviour {
 
@@ -57,6 +58,11 @@ public class OverallGameManager : MonoBehaviour {
 	void Update () {
         AudioListener.volume = isMute ? 0 : 1;	
 	}
+
+    public void backToMainMenu(){
+        Debug.Log("Going back to main menu");
+        SceneManager.LoadScene(0);
+    }
 }
 
 public static class Enums {

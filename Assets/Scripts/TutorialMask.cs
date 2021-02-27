@@ -7,15 +7,13 @@ public class TutorialMask : MonoBehaviour
 
     private GroupAdder groupAdder;
     [SerializeField] private GameObject tutorialText;
-    [SerializeField] private int curNodeGroup = 1; 
-    // [SerializeField] private Sprite[] mask;
-    // [SerializeField][TextArea] private string[] texts;
-    // [SerializeField] private float[] posTextX, posTextY;
-    // [SerializeField] private bool[] tutorialStepCanAct;
+    private int curNodeGroup = 1; 
     [SerializeField] private List<TutorialStep> steps;
-    [SerializeField] private bool waiting;
-    [SerializeField] private TutorialStep curStep;
-    [SerializeField] private bool canProceede = true;
+    private bool waiting = false;
+    private TutorialStep curStep;
+    private bool canProceede = false;
+
+    private OverallGameManager gameManager;
 
     // private int tutorialStep = 0;
 
@@ -25,6 +23,7 @@ public class TutorialMask : MonoBehaviour
 
     private void Start()
     {
+        gameManager = FindObjectOfType<OverallGameManager>();
         groupAdder = FindObjectOfType<GroupAdder>();
         // curNodeGroup = groupAdder.getTutorialCount();
         tutorialText.GetComponent<Renderer>().sortingLayerName = "GameOver";
@@ -47,7 +46,7 @@ public class TutorialMask : MonoBehaviour
     }
     
     private void Update(){
-        if(!canProceede && 
+        if(!canProceede &&
             (
                 (!curStep.isAction && Input.GetMouseButtonDown(0)) ||
                 (curStep.isAction && curNodeGroup != groupAdder.getTutorialCount())
@@ -61,8 +60,6 @@ public class TutorialMask : MonoBehaviour
     }
     private void handleStep(){
 
-        Debug.Log("Start step");
-
         this.GetComponent<SpriteRenderer>().sprite = curStep.mask;
         // tutorialText.GetComponent<TextMesh>().text = texts[curTutorial]; get another sprite renderer to render the text
 
@@ -73,32 +70,27 @@ public class TutorialMask : MonoBehaviour
     }
 
     private void scheduleStop(float stopDelay){
-        Debug.Log("Schedule Stop");
         waiting = true;
         Invoke("stopTime", stopDelay);
     }
 
     private void stopTime(){
-        Debug.Log("Stopping time");
         Time.timeScale = 0;
         waiting = false;
         proceedToNextStep();
     }
 
     private void continueTime(){
-        Debug.Log("Continue Time");
         Time.timeScale = 1.0f;
         if(curStep.isStop) scheduleStop(curStep.stopDelay);
         else proceedToNextStep();
     }
 
     private void proceedToNextStep(){
-        Debug.Log("Proceeding to next Step");
-        if(steps.Count <= 0){
-            Debug.Log("Tutorial ended");
-            //TODO return to main menu
-        } 
         steps.RemoveAt(0);
+        if(steps.Count <= 0){
+            gameManager.backToMainMenu();
+        } 
         curStep = steps[0];
         StartCoroutine(waitForProcede());
     }

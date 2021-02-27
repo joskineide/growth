@@ -522,7 +522,7 @@ PrefabInstance:
     - target: {fileID: 114830847726737518, guid: 00a16093df8da4048bcf43f9bfda6917,
         type: 3}
       propertyPath: curNodeGroup
-      value: 3
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 212636196064195880, guid: 00a16093df8da4048bcf43f9bfda6917,
         type: 3}
@@ -1923,6 +1923,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1020509322588424, guid: d273e6c99e91ed0499a7659e3c4dff81,
         type: 3}
+    - target: {fileID: 114291333846912400, guid: 436939ef995ec6249ad1404cf917c53b,
+        type: 3}
+      propertyPath: tutorialCount
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 436939ef995ec6249ad1404cf917c53b, type: 3}
 --- !u!1 &2073866320
