@@ -216,7 +216,7 @@ Transform:
   m_LocalScale: {x: 0.06297876, y: 0.06297875, z: 0.06297875}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!102 &324225894 stripped
 TextMesh:
@@ -694,7 +694,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4379957161614462, guid: 21306b1dcf657e3408a946c7d284551c, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 21306b1dcf657e3408a946c7d284551c, type: 3}
@@ -1566,7 +1566,7 @@ Transform:
   - {fileID: 1352967066}
   - {fileID: 737430733}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1352967065
 GameObject:
@@ -1929,7 +1929,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4601029849143984, guid: 436939ef995ec6249ad1404cf917c53b, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 114291333846912400, guid: 436939ef995ec6249ad1404cf917c53b,
         type: 3}

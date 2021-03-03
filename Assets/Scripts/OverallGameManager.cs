@@ -114,6 +114,7 @@ public class OverallGameManager : MonoBehaviour {
 	}
 
     public void backToMainMenu(){
+        Time.timeScale = 1f;
         Debug.Log("Going back to main menu");
         SceneManager.LoadScene(0);
     }
