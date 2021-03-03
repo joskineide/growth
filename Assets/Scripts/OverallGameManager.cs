@@ -9,6 +9,50 @@ public class OverallGameManager : MonoBehaviour {
     private bool isMute;
     private bool isColorBlind;
     private static OverallGameManager ogm;
+    private int nodeGroupsPlaced = 0;
+
+    [SerializeField] private List<ShapeOdd> shapeOdds; 
+
+    [System.Serializable]private class ShapeOdd{
+        private float curWeight;
+        [SerializeField] private string name;
+        private int shapeId;
+        [SerializeField] private float initialWeight;
+        [SerializeField] private float dificultyMultiplier;
+
+        public float getCurWeight(int nodeGroupsPlaced){
+            return initialWeight + (dificultyMultiplier * nodeGroupsPlaced);
+        }
+
+        public void setShapeId(int id){
+            this.shapeId = id;
+        }
+        public int getShapeId(){
+            return this.shapeId;
+        }
+    }
+
+    public int generateRandomNodeShapeId(){
+        this.nodeGroupsPlaced ++;
+
+        float totalWeight = 0;
+        shapeOdds.ForEach(delegate(ShapeOdd shape){
+            totalWeight += shape.getCurWeight(nodeGroupsPlaced);
+        });
+        float shapeSeed = Random.Range(0, totalWeight);
+        float curWeight = 0;
+
+        foreach(ShapeOdd shape in shapeOdds){
+            curWeight += shape.getCurWeight(nodeGroupsPlaced);
+            if(curWeight >= shapeSeed){
+                Debug.Log("NodeGroupsPlaced: " + nodeGroupsPlaced + " Total Weight: " + totalWeight + " ShapeSeed: " + shapeSeed + " CurWeight: " + curWeight + " ChosenShape: " + shape.getShapeId());
+                return shape.getShapeId();
+            } 
+        }
+        Debug.Log("Something went wrong in ");
+
+        return shapeOdds[shapeOdds.Count - 1].getShapeId();
+    }
 
     public bool checkMute(){
         return this.isMute;
@@ -53,6 +97,16 @@ public class OverallGameManager : MonoBehaviour {
 		{
 			Destroy (gameObject);
 		}
+    }
+
+    private void setupShapeIds(){
+        for(int i = 0 ;  i < shapeOdds.Count ; i++){
+            shapeOdds[i].setShapeId(i);
+        }
+    }
+
+    private void Start(){
+        setupShapeIds();
     }
 
 	void Update () {

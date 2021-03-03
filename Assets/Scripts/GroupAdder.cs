@@ -5,18 +5,12 @@ using UnityEngine;
 public class GroupAdder : MonoBehaviour {
     //tutorialPrefabs setta no inspetor mesmo, são os prefabs utilizados no tutorial #!!#
     [SerializeField] private GameObject[] allGroups, tutorialPrefabs;
-    // [SerializeField] private List<TutorialGroup> tutorialGroups;
+    private OverallGameManager gameManager;
     private GameObject activeGroup;
-    [SerializeField] private int groupID, dice, wDice, groupChose, tWeight, wCheck, tutorialCount;
-    [SerializeField] private int[] initialWeight;
+    [SerializeField] private int groupID, dice, groupChose, tutorialCount;
     private bool isLoading, canTutorialChange;
     private GroupNoteToPlace activeGroupScript;
     private BoardManager bm;
-
-    // [System.Serializable] private class TutorialGroup {
-    //     public GameObject tutorialPrefab;
-    //     public List<int> nodeColors;
-    // } 
     
     public int getTutorialCount(){
         return this.tutorialCount;
@@ -40,19 +34,12 @@ public class GroupAdder : MonoBehaviour {
         Destroy(activeGroup.gameObject);
     }
 	private void Start () {
-        SetupStats(initialWeight);
         bm = FindObjectOfType<BoardManager>();
+        gameManager = FindObjectOfType<OverallGameManager>();
         if(bm.checkTutorial()) {
             spawnTutorialPiece(0);
         }
 	}
-    private void SetupStats(int[] nodeW)
-    {
-        for (int i = 0; i < nodeW.Length; i++)
-        {
-            tWeight += nodeW[i];
-        }
-    }
 	void Update () {
 
         if(bm.checkTutorial()) {
@@ -62,7 +49,7 @@ public class GroupAdder : MonoBehaviour {
 
         if (activeGroup == null && !isLoading)
         {
-            rollPieceType();
+            groupChose = gameManager.generateRandomNodeShapeId();
 
             rollPieceRotation();
 
@@ -87,21 +74,6 @@ public class GroupAdder : MonoBehaviour {
 
     private void checkUpdateGroupId(){
         if (activeGroup != null) activeGroup.GetComponent<GroupNoteToPlace>().setGroupId(groupID);
-    }
-
-    private void rollPieceType(){
-        groupChose = 0;
-        wCheck = 0;
-        wDice = Random.Range(0, tWeight);
-        for (int i = 0; i < initialWeight.Length; i++)
-        {
-            wCheck += initialWeight[i];
-            if (wDice < wCheck)
-            {
-                groupChose = i;
-                break;
-            }
-        }
     }
 
     private void rollPieceRotation(){
