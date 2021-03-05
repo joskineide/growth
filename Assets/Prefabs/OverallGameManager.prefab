@@ -1,21 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications: []
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1862989628217732}
-  m_IsPrefabAsset: 1
 --- !u!1 &1862989628217732
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4135819051145670}
@@ -29,9 +19,10 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &4135819051145670
 Transform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862989628217732}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.5227282, y: 0.052182082, z: 0.023753285}
@@ -42,9 +33,10 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &114627721186132062
 MonoBehaviour:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862989628217732}
   m_Enabled: 1
   m_EditorHideFlags: 0
@@ -52,5 +44,40 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canInteractMenu: 1
-  isMute: 0
-  isColorBlind: 0
+  shapeOdds:
+  - name: Dot
+    initialWeight: 1
+    dificultyMultiplier: 0.05
+  - name: Two Piece
+    initialWeight: 4
+    dificultyMultiplier: 0.04
+  - name: Three Piece L
+    initialWeight: 2
+    dificultyMultiplier: 0.03
+  - name: Three Piece I
+    initialWeight: 2
+    dificultyMultiplier: 0.03
+  - name: Four Pieces Square
+    initialWeight: 2
+    dificultyMultiplier: 0.06
+  - name: Four Piece I
+    initialWeight: 2
+    dificultyMultiplier: 0.08
+  - name: Four Piece L
+    initialWeight: 2
+    dificultyMultiplier: 0.09
+  - name: Four Piece T
+    initialWeight: 2
+    dificultyMultiplier: 0.11
+  - name: Four Piece S
+    initialWeight: 2
+    dificultyMultiplier: 0.1
+  - name: Five Piece +
+    initialWeight: 2
+    dificultyMultiplier: 0.11
+  - name: Five Piece X
+    initialWeight: 2
+    dificultyMultiplier: 0.11
+  - name: Big Square
+    initialWeight: 1
+    dificultyMultiplier: 0.12

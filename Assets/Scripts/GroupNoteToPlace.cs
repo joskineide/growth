@@ -44,9 +44,9 @@ public class GroupNoteToPlace : MonoBehaviour {
         initialPos = transform.position;
         ntp = GetComponentsInChildren<NodeToPlace>();
         bm = FindObjectOfType<BoardManager>();
+        // checkColorAmount();
         if(bm.checkTutorial())
         {   
-            //Aqui vai settar todos as posições onde os grupos podems ser encaixados #!!#
             tutorialExpected = new bool[3,10,10];
             tutorialExpected[0,3,8] = true;
             tutorialExpected[1,7,8] = true;
@@ -57,7 +57,6 @@ public class GroupNoteToPlace : MonoBehaviour {
         {
             for (int i = 0; i < ntp.Length; i++)
             {
-                // Debug.Log("Group ID" + groupID + "Adding node..."+i);
                 ntp[i].setLoading(true);
                 ntp[i].setNodeId(PlayerPrefs.GetInt("G" + groupID + "Node" + i));
             }
@@ -84,7 +83,6 @@ public class GroupNoteToPlace : MonoBehaviour {
                     if(ntp[0].getPosX() >= 0 &&  ntp[0].getPosX() < bm.getBoardSizeX()                    
                         && ntp[0].getPosY() >= 0 && ntp[0].getPosY() < bm.getBoardSizeY())
                     {
-                        // Debug.Log("Posx:"+ntp[0].getPosX() +" PosY:"+ntp[0].getPosY());
                         canPlace = tutorialExpected[ntp.Length-2,ntp[0].getPosX(), ntp[0].getPosY()];
                     }
                     else
@@ -146,4 +144,48 @@ public class GroupNoteToPlace : MonoBehaviour {
 	{
 		transform.localScale = new Vector2 (size, size);
 	}
+
+    // private void checkColorAmount(){
+    //     if(ntp.Length < 4) return;
+    //     int[] nodeIds = new int[4];
+    //     foreach(NodeToPlace node in ntp){
+    //         // Debug.Log(node.getNodeId());
+    //         // nodeIds[node.getNodeId() -1] ++;
+    //     }
+    //     foreach(int nodeId in nodeIds){
+    //         if(nodeId >=4){
+    //             rollColors();
+    //             break;
+    //         }
+    //     }
+    // }
+
+    // private void rollColors(){
+    //     int min = 0;
+    //     int max = 3;
+    //     int total = ntp.Length;
+    //     int curColored = 0;
+    //     int[] ids = new int[4];
+    //     int[] res = new int[total];
+
+    //     for(int i = 0; i < 4; i++){
+    //         // (9 - 0) - 3 * (3 - 0) > 0
+
+
+    //         min = (total - curColored) - (3 - i) * 3;
+    //         min = min < 0 ? 0 : min;
+    //         max = total - curColored;
+    //         max = max > 3 ? 3 : max;
+
+    //         int amount = Random.Range(min, max + 1);
+    //         ids[i] = amount;
+    //         curColored += amount; //TODO COME BACK HERE YOU LIL BITCH
+
+
+    //     }
+
+        // [1,1,1,2,1,4]
+
+        // [2,4,3,2,1,4]
+    // }
 }

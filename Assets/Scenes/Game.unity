@@ -1319,6 +1319,11 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 114291333846912400, guid: 436939ef995ec6249ad1404cf917c53b,
+        type: 3}
+      propertyPath: groupID
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 212977190362540906, guid: 436939ef995ec6249ad1404cf917c53b,
         type: 3}
       propertyPath: m_Sprite
@@ -1340,6 +1345,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1862989628217732, guid: ae9e1661af31ec1488ca5bd91ee310fb, type: 3}
+      propertyPath: m_Name
+      value: OverallGameManager
+      objectReference: {fileID: 0}
     - target: {fileID: 4135819051145670, guid: ae9e1661af31ec1488ca5bd91ee310fb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.5227282
@@ -1371,6 +1380,23 @@ PrefabInstance:
     - target: {fileID: 4135819051145670, guid: ae9e1661af31ec1488ca5bd91ee310fb, type: 3}
       propertyPath: m_RootOrder
       value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135819051145670, guid: ae9e1661af31ec1488ca5bd91ee310fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135819051145670, guid: ae9e1661af31ec1488ca5bd91ee310fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4135819051145670, guid: ae9e1661af31ec1488ca5bd91ee310fb, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114627721186132062, guid: ae9e1661af31ec1488ca5bd91ee310fb,
+        type: 3}
+      propertyPath: shapeOdds.Array.data[11].initialWeight
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ae9e1661af31ec1488ca5bd91ee310fb, type: 3}

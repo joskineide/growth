@@ -126,28 +126,27 @@ public class BoardManager : MonoBehaviour
                         {
                             if (i + k < getBoardSizeX() && j + l < getBoardSizeY())
                             {
-                                isOcupied = (getNodeId(i + k, j + l) != 0);
+                                isOcupied = getNodeId(i + k, j + l) != 0;
                             }
                             else isOcupied = true;
-
                             
                             if (isOcupied)
                             {
                                 switch (curPosCheck)
                                 {
                                     case 0:
-                                        if (curShape != 4 && curShape != 13 && curShape != 18 && curShape != 21 && curShape != 22 && curShape != 25 && curShape != 26)
+                                        if (curShape != 4 && curShape != 13 && curShape != 18 && curShape != 21 && curShape != 22 && curShape != 25 && curShape != 26 && curShape != 28)
                                         {
                                             dIsSatisfied[s] = -1;
                                         }
                                         break;
                                     case 1:
                                         if (curShape != 0 && curShape != 1 && curShape != 3 && curShape != 7 && curShape != 10 && curShape != 14 && curShape != 18
-                                            && curShape != 19 && curShape != 20 && curShape != 24)
+                                            && curShape != 19 && curShape != 20 && curShape != 24 && curShape != 29)
                                             dIsSatisfied[s] = -1;
                                         break;
                                     case 2:
-                                        if (curShape == 8 || curShape == 11 || curShape == 16 || curShape == 17 || curShape == 18 || curShape == 21 || curShape == 27)
+                                        if (curShape == 8 || curShape == 11 || curShape == 16 || curShape == 17 || curShape == 18 || curShape == 21 || curShape == 27 || curShape == 29 || curShape == 30)
                                             dIsSatisfied[s] = -1;
                                         break;
                                     case 3:
@@ -156,30 +155,39 @@ public class BoardManager : MonoBehaviour
                                         break;
                                     case 4:
                                         if (curShape != 0 && curShape != 2 && curShape != 5 && curShape != 8 && curShape != 11 && curShape != 12 && curShape != 13
-                                            && curShape != 17 && curShape != 23 && curShape != 27)
+                                            && curShape != 17 && curShape != 23 && curShape != 27 && curShape != 29)
                                             dIsSatisfied[s] = -1;
                                         break;
                                     case 5:
                                         if (curShape == 3 || curShape == 4 || curShape == 5 || curShape == 9 || curShape == 12 || curShape == 13 || curShape == 18 || curShape == 19 ||
-                                            curShape == 20 || curShape == 21 || curShape == 22 || curShape == 23 || curShape == 24 || curShape == 25 || curShape == 26 || curShape == 27)
+                                            curShape == 20 || curShape == 21 || curShape == 22 || curShape == 23 || curShape == 24 || curShape == 25 || curShape == 26 || curShape == 27 ||
+                                            curShape == 28 || curShape == 29 || curShape == 30)
                                             dIsSatisfied[s] = -1;
                                         break;
                                     case 6:
-                                        if (curShape == 17 || curShape == 18 || curShape == 19 || curShape == 23 || curShape == 26)
+                                        if (curShape == 17 || curShape == 18 || curShape == 19 || curShape == 23 || curShape == 26 && curShape == 28 || curShape == 30)
                                             dIsSatisfied[s] = -1;
                                         break;
                                     case 8:
-                                        if (curShape == 7 || curShape == 10 || curShape == 13 || curShape == 14 || curShape == 15 || curShape == 22 || curShape == 24)
+                                        if (curShape == 7 || curShape == 10 || curShape == 13 || curShape == 14 || curShape == 15 || curShape == 22 || curShape == 24 || curShape == 29 || curShape == 30)
                                             dIsSatisfied[s] = -1;
                                         break;
                                     case 9:
-                                        if (curShape == 12 || curShape == 13 || curShape == 14 || curShape == 20 || curShape == 25)
+                                        if (curShape == 12 || curShape == 13 || curShape == 14 || curShape == 20 || curShape == 25 || curShape == 28 || curShape == 30)
                                             dIsSatisfied[s] = -1;
                                         break;
+                                    case 10:
+                                        if (curShape == 29 || curShape == 30)
+                                            dIsSatisfied[s] = -1;
+                                        break;                                    
                                     case 12:
                                         if (curShape == 10)
                                             dIsSatisfied[s] = -1;
-                                        break;
+                                        break;                                         
+                                        // 12 13 14 15
+                                        // 8  9  10 11
+                                        // 4  5  6  7
+                                        // 0  1  2  3
                                 }
                             }
                             if (dIsSatisfied[s] == 0)
@@ -235,7 +243,13 @@ public class BoardManager : MonoBehaviour
                                         }
                                         break;
                                     case 9:
-                                        if (curShape == 12 || curShape == 13 || curShape == 14 || curShape == 20 || curShape == 25)
+                                        if (curShape == 12 || curShape == 13 || curShape == 14 || curShape == 20 || curShape == 25 || curShape == 28)
+                                        {
+                                            dSatisfiedCount = true;
+                                        }
+                                        break;
+                                    case 10:
+                                        if (curShape == 29 || curShape == 30)
                                         {
                                             dSatisfiedCount = true;
                                         }
@@ -275,6 +289,7 @@ public class BoardManager : MonoBehaviour
             PlayerPrefs.SetInt("GroupID" + i, activeGroups[i].getDice());
             for (int j = 0; j < activeGroups[i].getActiveGroup().getNodesAmount(); j++)
             {
+                Debug.Log("SAVING: " + "G" + i + "Node" + j + " Value:" + activeGroups[i].getActiveGroup().getNodeToPlace(j).getNodeId());
                 PlayerPrefs.SetInt("G" + i + "Node" + j, activeGroups[i].getActiveGroup().getNodeToPlace(j).getNodeId());
             }
         }
@@ -324,6 +339,19 @@ public class BoardManager : MonoBehaviour
         {
             Instantiate(sparkEffect, new Vector3(5 - (getBoardSizeX() / 2), 5 - (getBoardSizeY() / 2), -1), Quaternion.identity);
         }
+
+                //Debug
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            SaveGame();
+        }
+
+                //Debug
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            LoadGame();
+        }
+
         //Debug
         if (Input.GetKeyDown(KeyCode.K))
         {

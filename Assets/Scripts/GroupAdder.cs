@@ -105,6 +105,15 @@ public class GroupAdder : MonoBehaviour {
             case 8:
                 dice = Random.Range(24, 28);
                 break;
+            case 9:
+                dice = 28;
+                break;
+            case 10:
+                dice = 29;
+                break;
+            case 11:
+                dice = 30;
+                break;
         }
     }
 

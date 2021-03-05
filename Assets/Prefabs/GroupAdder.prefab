@@ -47,6 +47,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -155,18 +156,14 @@ MonoBehaviour:
   - {fileID: 1219512586204182, guid: 78269a2819ec56e479c37f0725774687, type: 3}
   - {fileID: 1690389500197942, guid: e8a3053fd55997642b7580054ec5627e, type: 3}
   - {fileID: 1301679398473724, guid: 812273338c422254ba752b1e07f46c01, type: 3}
+  - {fileID: 2522777497957886120, guid: 8b2c9a3f0dc47b14988c67a067c449a8, type: 3}
+  - {fileID: 5653299558796349465, guid: c726fd41950de5c499d52293e3f1e7ed, type: 3}
+  - {fileID: 7417898940259560447, guid: 08506461552a5de46a9e96a782cf084c, type: 3}
   tutorialPrefabs: []
-  activeGroup: {fileID: 0}
   groupID: 1
   dice: 0
-  wDice: 0
   groupChose: 0
-  tWeight: 0
-  wCheck: 0
   tutorialCount: 0
-  initialWeight: 010000000400000002000000020000000200000002000000020000000200000002000000
-  isLoading: 0
-  canTutorialChange: 0
 --- !u!1 &1582706903808088
 GameObject:
   m_ObjectHideFlags: 0
@@ -213,6 +210,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
