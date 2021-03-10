@@ -9,7 +9,7 @@ public class OverallGameManager : MonoBehaviour {
     private bool isMute;
     private bool isColorBlind;
     private static OverallGameManager ogm;
-    private int nodeGroupsPlaced = 0;
+    [SerializeField] private int nodeGroupsPlaced = 0;
 
     [SerializeField] private List<ShapeOdd> shapeOdds; 
 
@@ -30,6 +30,14 @@ public class OverallGameManager : MonoBehaviour {
         public int getShapeId(){
             return this.shapeId;
         }
+    }
+
+    public int getNodeGroupsPlaced(){
+        return this.nodeGroupsPlaced;
+    }
+
+    public void setNodeGroupsPlaced(int nodeGroupsPlaced){
+        this.nodeGroupsPlaced = nodeGroupsPlaced;
     }
 
     public int generateRandomNodeShapeId(){

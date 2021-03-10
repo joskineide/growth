@@ -26,6 +26,8 @@ public class BoardManager : MonoBehaviour
     [SerializeField] private float pointTimer, pointMaxTimer;
     private bool isScoring;
 
+    private OverallGameManager gameManager;
+
     public bool checkTutorial(){
         return isTutorial;
     }
@@ -68,6 +70,7 @@ public class BoardManager : MonoBehaviour
 
     void Awake()
     {
+        gameManager = FindObjectOfType<OverallGameManager>();
         gameOverText.SetActive(false);
 
         highScore = PlayerPrefs.HasKey("highScore") ? PlayerPrefs.GetInt("highScore") : 0;
@@ -132,6 +135,7 @@ public class BoardManager : MonoBehaviour
                             
                             if (isOcupied)
                             {
+                                // Debug.Log("X: " + i + " Y: " + j + " CurPosCheck: " + curPosCheck + " CurShape: " + curShape);
                                 switch (curPosCheck)
                                 {
                                     case 0:
@@ -165,7 +169,7 @@ public class BoardManager : MonoBehaviour
                                             dIsSatisfied[s] = -1;
                                         break;
                                     case 6:
-                                        if (curShape == 17 || curShape == 18 || curShape == 19 || curShape == 23 || curShape == 26 && curShape == 28 || curShape == 30)
+                                        if (curShape == 17 || curShape == 18 || curShape == 19 || curShape == 23 || curShape == 26 || curShape == 28 || curShape == 30)
                                             dIsSatisfied[s] = -1;
                                         break;
                                     case 8:
@@ -184,10 +188,10 @@ public class BoardManager : MonoBehaviour
                                         if (curShape == 10)
                                             dIsSatisfied[s] = -1;
                                         break;                                         
-                                        // 12 13 14 15
-                                        // 8  9  10 11
-                                        // 4  5  6  7
-                                        // 0  1  2  3
+                                        // 3 7 11 15
+                                        // 2 6 10 14
+                                        // 1 5  9 13
+                                        // 0 4  8 12
                                 }
                             }
                             if (dIsSatisfied[s] == 0)
@@ -245,12 +249,14 @@ public class BoardManager : MonoBehaviour
                                     case 9:
                                         if (curShape == 12 || curShape == 13 || curShape == 14 || curShape == 20 || curShape == 25 || curShape == 28)
                                         {
+                                            // Debug.Log("IS SATISFIED X: " + i + "Y: " +j);
                                             dSatisfiedCount = true;
                                         }
                                         break;
                                     case 10:
                                         if (curShape == 29 || curShape == 30)
                                         {
+                                            // Debug.Log("IS SATISFIED X: " + i + "Y: " +j);
                                             dSatisfiedCount = true;
                                         }
                                         break;
@@ -284,6 +290,7 @@ public class BoardManager : MonoBehaviour
     }
     public void SaveGame()
     {
+        PlayerPrefs.SetInt("NodeGroupsPlaced", gameManager.getNodeGroupsPlaced());
         for (int i = 0; i < activeGroups.Length; i++)
         {
             PlayerPrefs.SetInt("GroupID" + i, activeGroups[i].getDice());
@@ -305,6 +312,8 @@ public class BoardManager : MonoBehaviour
     }
     void LoadGame()
     {
+        gameManager.setNodeGroupsPlaced(PlayerPrefs.GetInt("NodeGroupsPlaced"));
+        
         for (int i = 0; i < activeGroups.Length; i++)
         {
             activeGroups[i].setLoading(true);
@@ -397,6 +406,7 @@ public class BoardManager : MonoBehaviour
     }
     public void RestartBoard()
     {
+        gameManager.setNodeGroupsPlaced(0);
         PlayerPrefs.SetInt("CurScore", 0);
         score = 0;
         comboScore = 0;
